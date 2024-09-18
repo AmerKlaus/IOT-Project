@@ -1,0 +1,18 @@
+<html>
+<head>
+    <title>IoT Dashboard</title>
+</head>
+<body>
+    <h1>IoT LED Control</h1>
+    <p>LED Status: {{ 'ON' if led_status else 'OFF' }}</p>
+    <button onclick="toggleLed()">Toggle LED</button>
+
+    <script>
+        function toggleLed() {
+            fetch('/toggle', { method: 'POST' }).then(response => {
+                location.reload();
+            });
+        }
+    </script>
+</body>
+</html>
