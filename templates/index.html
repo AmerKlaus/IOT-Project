@@ -1,18 +1,49 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>IoT Dashboard</title>
+  <meta charset="UTF-8">
+  <title>IoT Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    img {
+      height: 200px;
+      width: auto;
+    }
+  </style>
 </head>
 <body>
-    <h1>IoT LED Control</h1>
-    <p>LED Status: {{ 'ON' if led_status else 'OFF' }}</p>
-    <button onclick="toggleLed()">Toggle LED</button>
-
-    <script>
-        function toggleLed() {
-            fetch('/toggle', { method: 'POST' }).then(response => {
-                location.reload();
-            });
-        }
-    </script>
+  <h1>IoT LED Control</h1>
+  <div class="content">
+    <input type="checkbox" id="btn" onclick="toggleLed()" {{ 'checked' if led_status else '' }}>
+    <label for="btn">
+      <span class="track">
+        <span class="txt"></span>
+      </span>
+      <span class="thumb">|||</span>
+    </label>
+  </div>
+  <img id="ledImage" src="{{ url_for('static', filename='images/lightBulb' + ('On' if led_status else 'Off') + '.png') }}" alt="Light Bulb">
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const btn = document.getElementById('btn');
+        const img = document.querySelector('img');  // Assuming there's only one image element for the LED
+        const statusText = document.querySelector('p');  // The paragraph showing LED status
+    
+        btn.addEventListener('click', function() {
+            fetch('/toggle', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.led_status) {
+                    img.src = "{{ url_for('static', filename='images/lightBulbOn.png') }}";
+                } else {
+                    img.src = "{{ url_for('static', filename='images/lightBulbOff.png') }}";
+                }
+            })
+            .catch(error => console.error('Error toggling LED:', error));
+        });
+    });
+    </script>    
 </body>
 </html>
