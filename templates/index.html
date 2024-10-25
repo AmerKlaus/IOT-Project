@@ -1,49 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>IoT Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <style>
-    img {
-      height: 200px;
-      width: auto;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Dashboard</title>
+    <style>
+        /* Same styling as before */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            margin-top: 50px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .status {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-  <h1>IoT LED Control</h1>
-  <div class="content">
-    <input type="checkbox" id="btn" onclick="toggleLed()" {{ 'checked' if led_status else '' }}>
-    <label for="btn">
-      <span class="track">
-        <span class="txt"></span>
-      </span>
-      <span class="thumb">|||</span>
-    </label>
-  </div>
-  <img id="ledImage" src="{{ url_for('static', filename='images/lightBulb' + ('On' if led_status else 'Off') + '.png') }}" alt="Light Bulb">
-  
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const btn = document.getElementById('btn');
-        const img = document.querySelector('img');  // Assuming there's only one image element for the LED
-        const statusText = document.querySelector('p');  // The paragraph showing LED status
-    
-        btn.addEventListener('click', function() {
-            fetch('/toggle', { method: 'POST' })
-            .then(response => response.json())
-            .then(data => {
-                if (data.led_status) {
-                    img.src = "{{ url_for('static', filename='images/lightBulbOn.png') }}";
-                } else {
-                    img.src = "{{ url_for('static', filename='images/lightBulbOff.png') }}";
-                }
-            })
-            .catch(error => console.error('Error toggling LED:', error));
-        });
-    });
-    </script>    
+    <div class="container">
+        <h1>IoT Dashboard</h1>
+
+        <!-- Temperature Display -->
+        <div>
+            <h3>Temperature (°C)</h3>
+            <div id="temperature" class="status">Loading...</div>
+        </div>
+
+        <!-- Humidity Display -->
+        <div>
+            <h3>Humidity (%)</h3>
+            <div id="humidity" class="status">Loading...</div>
+        </div>
+    </div>
+
+    <script>
+        async function updateSensorData() {
+            try {
+                const response = await fetch('/sensor_data');
+                const data = await response.json();
+                document.getElementById('temperature').innerText = `${data.temperature || "N/A"} °C`;
+                document.getElementById('humidity').innerText = `${data.humidity || "N/A"} %`;
+            } catch (error) {
+                console.error('Error fetching sensor data:', error);
+            }
+        }
+
+        // Update data every 5 seconds
+        setInterval(updateSensorData, 5000);
+        updateSensorData(); // Initial call to load data immediately
+    </script>
 </body>
 </html>
