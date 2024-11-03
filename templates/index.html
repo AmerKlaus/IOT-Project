@@ -1,64 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IoT Dashboard</title>
-    <style>
-        /* Same styling as before */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .container {
-            margin-top: 50px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        .status {
-            font-size: 1.2em;
-            margin-top: 10px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IoT Dashboard</title>
+  <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>IoT Dashboard</h1>
-
-        <!-- Temperature Display -->
-        <div>
-            <h3>Temperature (°C)</h3>
-            <div id="temperature" class="status">Loading...</div>
-        </div>
-
-        <!-- Humidity Display -->
-        <div>
-            <h3>Humidity (%)</h3>
-            <div id="humidity" class="status">Loading...</div>
-        </div>
+  <div class="dashboard">
+    <div class="gauge">
+      <h3>Temperature </h3>
+      <div id="temperatureGauge"></div>
     </div>
+    
+    <div class="gauge">
+      <h3>Humidity </h3>
+      <div id="humidityGauge"></div>
+    </div>
+    
+    <div class="fan">
+      <h3>Fan Status</h3>
+      <img id="fanIcon" src="/static/images/fan1.png" alt="Fan" />
+      <p><span id="fanStatus">Off</span></p>
+    </div>   
+  </div>
 
-    <script>
-        async function updateSensorData() {
-            try {
-                const response = await fetch('/sensor_data');
-                const data = await response.json();
-                document.getElementById('temperature').innerText = `${data.temperature || "N/A"} °C`;
-                document.getElementById('humidity').innerText = `${data.humidity || "N/A"} %`;
-            } catch (error) {
-                console.error('Error fetching sensor data:', error);
-            }
-        }
-
-        // Update data every 5 seconds
-        setInterval(updateSensorData, 5000);
-        updateSensorData(); // Initial call to load data immediately
-    </script>
+  <script src="/static/js/dashboard.js"></script>
 </body>
 </html>

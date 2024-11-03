@@ -1,0 +1,43 @@
+/* Basic styles for the dashboard */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+/* Style for the fan icon */
+#fanIcon {
+  width: 100px; /* Adjust width as needed */
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Center the image */
+  margin: 0 auto; /* Center the image horizontally */
+  transition: transform 0.2s; /* Smooth transition for any transform */
+}
+
+/* Style for fan status text */
+#fanStatus {
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+  margin-top: 10px;
+}
+
+/* Style for gauges */
+.gauge {
+  width: 40%; /* Adjust size as needed */
+  height: 40%; /* Adjust size as needed */
+  background-color: #fff; /* Background color for gauge */
+  border: 2px solid #ccc; /* Border styling */
+  border-radius: 50%; /* Circular shape */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto; /* Center gauges horizontally */
+  font-size: 18px; /* Font size for gauge text */
+}
+
+/* Style for text labels */
+h2 {
+  text-align: center;
+}
