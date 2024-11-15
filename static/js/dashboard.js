@@ -3,23 +3,49 @@ let fanStatus = false;
 let fanFrame = 0; // To track the current frame of the fan animation
 const totalFrames = 7; // Total number of fan images
 let spinInterval;
+const gaugeElementTemp = document.querySelector(".gauge2");
+const gaugeElementHum = document.getElementById("hum");
+
+function setGaugeValueTemp(gauge, value) {
+  if (value < 0 || value > 1) {
+    return;
+  }
+
+  gauge.querySelector(".gauge__fill").style.transform = `rotate(${
+    value / 2
+  }turn)`;
+  gauge.querySelector(".gauge__cover").textContent = `${value * 100}°C`;
+}
+
+function setGaugeValueHum(gauge, value) {
+  if (value < 0 || value > 1) {
+    return;
+  }
+
+  gauge.querySelector(".gauge__fill").style.transform = `rotate(${
+    value / 2
+  }turn)`;
+  gauge.querySelector(".gauge__cover").textContent = `${value * 100}%`;
+}
 
 function updateDashboard() {
   // Fetching data from IoT server (use actual endpoints)
-  fetch('/sensor_data')
-    .then(response => response.json())
-    .then(data => {
+  fetch("/sensor_data")
+    .then((response) => response.json())
+    .then((data) => {
       const { temperature, humidity, fanOn } = data;
 
       // Update gauges
-      updateGauge('temperatureGauge', temperature, '°C');
-      updateGauge('humidityGauge', humidity, '%');
+      updateGauge("temperatureGauge", temperature, "°C");
+      updateGauge("humidityGauge", humidity, "%");
+      setGaugeValueTemp(gaugeElementTemp, temperature / 100);
+      setGaugeValueHum(gaugeElementHum, humidity / 100);
 
       // Update fan status
       fanStatus = fanOn;
       updateFanIcon();
     })
-    .catch(error => console.error('Error fetching data:', error));
+    .catch((error) => console.error("Error fetching data:", error));
 }
 
 // Update the gauge display for temperature and humidity
@@ -29,8 +55,8 @@ function updateGauge(id, value, unit) {
 
 // Update the fan icon display based on fanStatus
 function updateFanIcon() {
-  const fanIcon = document.getElementById('fanIcon');
-  const fanStatusText = document.getElementById('fanStatus');
+  const fanIcon = document.getElementById("fanIcon");
+  const fanStatusText = document.getElementById("fanStatus");
 
   if (fanStatus) {
     fanStatusText.textContent = "Status: ON"; // Update fan status text
@@ -45,7 +71,7 @@ function updateFanIcon() {
 
 // Function to animate the fan
 function cycleFanFrames() {
-  const fanIcon = document.getElementById('fanIcon');
+  const fanIcon = document.getElementById("fanIcon");
   clearInterval(spinInterval); // Clear any existing intervals
 
   spinInterval = setInterval(() => {

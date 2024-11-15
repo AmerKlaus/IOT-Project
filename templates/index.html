@@ -1,30 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IoT Dashboard</title>
-  <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body>
-  <div class="dashboard">
-    <div class="gauge">
-      <h3>Temperature </h3>
-      <div id="temperatureGauge"></div>
-    </div>
-    
-    <div class="gauge">
-      <h3>Humidity </h3>
-      <div id="humidityGauge"></div>
-    </div>
-    
-    <div class="fan">
-      <h3>Fan Status</h3>
-      <img id="fanIcon" src="/static/images/fan1.png" alt="Fan" />
-      <p><span id="fanStatus">Off</span></p>
-    </div>   
-  </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IoT Dashboard</title>
+    <link rel="stylesheet" href="../static/css/style.css" />
+  </head>
+  <body>
+    <div class="dashboard">
+      <div class="gauge">
+        <h3>Temperature</h3>
+        <div id="temperatureGauge"></div>
+      </div>
 
-  <script src="/static/js/dashboard.js"></script>
-</body>
+      <div class="gauge-container">
+        <div class="gauge2">
+          <div class="gauge__body">
+            <div class="gauge__fill"></div>
+            <div class="gauge__cover"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gauge">
+        <h3>Humidity</h3>
+        <div id="humidityGauge"></div>
+      </div>
+
+      <div class="gauge-container">
+        <div class="gauge2" id="hum">
+          <div class="gauge__body">
+            <div class="gauge__fill"></div>
+            <div class="gauge__cover"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fan">
+        <h3>Fan Status</h3>
+        <img id="fanIcon" src="../static/images/fan1.png" alt="Fan" />
+        <p><span id="fanStatus">Off</span></p>
+      </div>
+    </div>
+
+    <script src="../static/js/dashboard.js"></script>
+  </body>
 </html>
