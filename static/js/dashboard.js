@@ -54,6 +54,14 @@ function updateDashboard() {
       document.getElementById("ledStatus").innerText = led_status;
       document.getElementById("emailStatus").innerText = email_sent;
 
+      //turn on and off the lightbulb
+      if (led_status == "ON") {
+        document.getElementById("lightbulb").className = "bx bxs-bulb";
+      }
+      else {
+        document.getElementById("lightbulb").className = "bx bx-bulb";
+      }
+
       // Convert light intensity to a number and calculate progress bar value
       const lightIntensity = Number(light_intensity);
       const value = lightIntensity / 40; // Adjust division factor as needed
@@ -63,6 +71,7 @@ function updateDashboard() {
       progress.style.setProperty("--progress", `${value}%`);
     })
     .catch((error) => console.error("Error fetching data:", error));
+    
 }
 
 // Update the fan icon display based on fanStatus
