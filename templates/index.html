@@ -3,46 +3,129 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IoT Dashboard</title>
-    <link rel="stylesheet" href="../static/css/style.css" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Raspberry Pi BME280 Weather Station Using Flask and Python</title>
+    <link
+      href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../static/css/styles.css" />
+    <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
   </head>
+
   <body>
-    <div class="dashboard">
-      <div class="gauge">
-        <h3>Temperature</h3>
-        <div id="temperatureGauge"></div>
+    <div class="sidebar">
+      <div class="logo-details">
+        <i class="bx bx-microchip"></i>
+        <span class="logo_name">IoT Project</span>
       </div>
-
-      <div class="gauge-container">
-        <div class="gauge2">
-          <div class="gauge__body">
-            <div class="gauge__fill"></div>
-            <div class="gauge__cover"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gauge">
-        <h3>Humidity</h3>
-        <div id="humidityGauge"></div>
-      </div>
-
-      <div class="gauge-container">
-        <div class="gauge2" id="hum">
-          <div class="gauge__body">
-            <div class="gauge__fill"></div>
-            <div class="gauge__cover"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="fan">
-        <h3>Fan Status</h3>
-        <img id="fanIcon" src="../static/images/fan1.png" alt="Fan" />
-        <p><span id="fanStatus">Off</span></p>
-      </div>
+      <ul class="nav-links">
+        <li>
+          <a href="#" class="active">
+            <i class="bx bx-grid-alt"></i>
+            <span class="links_name">Dashboard</span>
+          </a>
+        </li>
+      </ul>
     </div>
-
+    <section class="home-section">
+      <nav>
+        <div class="sidebar-button">
+          <i class="bx bx-menu sidebarBtn"></i>
+          <span class="dashboard">Raspberry Pi | Using Flask and Python</span>
+        </div>
+      </nav>
+      <div class="home-content">
+        <div class="overview-boxes">
+          <div class="box">
+            <div class="right-side">
+              <div class="box-topic">Preferred Temperature</div>
+              <div class="number" id="temperature">...</div>
+            </div>
+            <i class="bx bxs-thermometer readings"></i>
+          </div>
+          <div class="box">
+            <div class="right-side">
+              <div class="box-topic">Preferred Humidity</div>
+              <div class="number" id="humidity">...</div>
+            </div>
+            <i class="bx bxs-droplet-half readings two"></i>
+          </div>
+          <div class="box">
+            <div class="right-side">
+              <div class="box-topic">Preferred Lighting</div>
+              <div class="number" id="light">...</div>
+            </div>
+            <i class="bx bxs-bulb readings four" style="color: #f05d5d"></i>
+          </div>
+          <div class="box">
+            <div class="right-side">
+              <div class="box-topic">User Profile</div>
+              <div class="number" id="profile">...</div>
+            </div>
+            <i class="bx bxs-building readings four"></i>
+          </div>
+        </div>
+        <div class="graph-box">
+          <div class="history-charts">
+            <div class="title">Readings</div>
+            <i class="bx bx-bulb" style="color: #f05d5d"></i>
+            <div class="progress">
+              <div class="bar">
+                <div class="progress-value"></div>
+              </div>
+            </div>
+            <p style="text-align: center">
+              Intensity: <span id="ligthItensity">N/A</span>
+            </p>
+            <p style="text-align: center">
+              Status: <span id="ledStatus">OFF</span>
+            </p>
+            <p style="text-align: center">
+              Email: <span id="emailStatus">No email sent</span>
+            </p>
+            <br>
+            <hr>
+            <br>
+            <div class="fan">
+              <img id="fanIcon" src="/static/images/fan1.png" alt="Fan" />
+              <p>Status: <span id="fanStatus">Off</span></p>
+            </div>
+          </div>
+          <div class="gaugeCharts">
+            <div class="title">Gauge Charts</div>
+            <div class="gauge-list">
+              <br>
+              <div class="gauge-box">
+                <h1>Temperature</h1>
+                <div class="gauge" id="temp">
+                  <div class="gauge__body">
+                    <div class="gauge__fill"></div>
+                    <div class="gauge__cover">...</div>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <br />
+              <br>
+              <div class="gauge-box">
+                <h1>**Humidity!**</h1>
+                <div class="gauge" id="hum">
+                  <div class="gauge__body">
+                    <div class="gauge__fill"></div>
+                    <div class="gauge__cover">...</div>
+                  </div>
+                </div>
+              </div>
+              <div class="gauge-box"></div>
+              <div class="gauge-box">
+                <div id="altitude-gauge"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <script src="../static/js/dashboard.js"></script>
   </body>
 </html>

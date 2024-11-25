@@ -3,7 +3,7 @@ let fanStatus = false;
 let fanFrame = 0; // To track the current frame of the fan animation
 const totalFrames = 7; // Total number of fan images
 let spinInterval;
-const gaugeElementTemp = document.querySelector(".gauge2");
+const gaugeElementTemp = document.getElementById("temp");
 const gaugeElementHum = document.getElementById("hum");
 
 function setGaugeValueTemp(gauge, value) {
@@ -29,28 +29,40 @@ function setGaugeValueHum(gauge, value) {
 }
 
 function updateDashboard() {
-  // Fetching data from IoT server (use actual endpoints)
   fetch("/sensor_data")
     .then((response) => response.json())
     .then((data) => {
-      const { temperature, humidity, fanOn } = data;
+      const {
+        temperature,
+        humidity,
+        fanOn,
+        light_intensity,
+        led_status,
+        email_sent,
+      } = data;
 
       // Update gauges
-      updateGauge("temperatureGauge", temperature, "°C");
-      updateGauge("humidityGauge", humidity, "%");
       setGaugeValueTemp(gaugeElementTemp, temperature / 100);
       setGaugeValueHum(gaugeElementHum, humidity / 100);
 
       // Update fan status
       fanStatus = fanOn;
       updateFanIcon();
+
+      // Update additional sensor data
+      document.getElementById("lightIntensity").innerText = light_intensity;
+      document.getElementById("ledStatus").innerText = led_status;
+      document.getElementById("emailStatus").innerText = email_sent;
+
+      // Convert light intensity to a number and calculate progress bar value
+      const lightIntensity = Number(light_intensity);
+      const value = lightIntensity / 40; // Adjust division factor as needed
+
+      // Update the progress bar
+      const progress = document.querySelector(".progress");
+      progress.style.setProperty("--progress", `${value}%`);
     })
     .catch((error) => console.error("Error fetching data:", error));
-}
-
-// Update the gauge display for temperature and humidity
-function updateGauge(id, value, unit) {
-  document.getElementById(id).textContent = ` ${value}${unit}`;
 }
 
 // Update the fan icon display based on fanStatus
