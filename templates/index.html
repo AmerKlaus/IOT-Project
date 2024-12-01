@@ -39,6 +39,13 @@
         <div class="overview-boxes">
           <div class="box">
             <div class="right-side">
+              <div class="box-topic">User Profile</div>
+              <div class="number" id="profile">...</div>
+            </div>
+            <img src="/static/images/default.png" alt="pfp" id="pfp" />
+          </div>
+          <div class="box">
+            <div class="right-side">
               <div class="box-topic">Preferred Temperature</div>
               <div class="number" id="temperature">...</div>
             </div>
@@ -46,24 +53,10 @@
           </div>
           <div class="box">
             <div class="right-side">
-              <div class="box-topic">Preferred Humidity</div>
-              <div class="number" id="humidity">...</div>
-            </div>
-            <i class="bx bxs-droplet-half readings two"></i>
-          </div>
-          <div class="box">
-            <div class="right-side">
               <div class="box-topic">Preferred Lighting</div>
               <div class="number" id="light">...</div>
             </div>
             <i class="bx bxs-bulb readings four" style="color: #f05d5d"></i>
-          </div>
-          <div class="box">
-            <div class="right-side">
-              <div class="box-topic">User Profile</div>
-              <div class="number" id="profile">...</div>
-            </div>
-            <i class="bx bxs-building readings four"></i>
           </div>
         </div>
         <div class="graph-box">
@@ -76,7 +69,7 @@
               </div>
             </div>
             <p style="text-align: center">
-              Intensity: <span id="ligthIntensity">N/A</span>
+              Intensity: <span id="lightIntensity">N/A</span>
             </p>
             <p style="text-align: center">
               Status: <span id="ledStatus">OFF</span>
@@ -84,18 +77,51 @@
             <p style="text-align: center">
               Email: <span id="emailStatus">No email sent</span>
             </p>
-            <br>
-            <hr>
-            <br>
-            <div class="fan">
-              <img id="fanIcon" src="/static/images/fan1.png" alt="Fan" />
-              <p>Status: <span id="fanStatus">Off</span></p>
+            <br />
+            <hr />
+            <br />
+            <div class="bottom">
+              <div class="fan">
+                <img id="fanIcon" src="/static/images/fan1.png" alt="Fan" />
+                <p><span id="fanStatus">Off</span></p>
+              </div>
+              <div class="scanner">
+                <div class="bluetooth-container">
+                  <div class="b-text">
+                    <div class="bluetooth-text">Bluetooth devices nearby:</div>
+                    <div id="deviceCount">0</div>
+                  </div>
+
+                  <div class="b-text">
+                    <div class="bluetooth-text">RSSI Threshold (dBm):</div>
+                    <div id="rssiThreshold">-50</div>
+                  </div>
+                  <input
+                    type="number"
+                    id="thresholdInput"
+                    class="input-box"
+                    placeholder="Enter new RSSI threshold"
+                  />
+                  <button class="button" onclick="updateThreshold()">
+                    Set Threshold
+                  </button>
+                  <br />
+                  <div class="scan">
+                    <button type="button" class="button" onclick="startScan()">
+                      Start Scan
+                    </button>
+                  </div>
+                </div>
+                <div class="devices">
+                  <ul id="deviceList" class="device-list">Nearby Devices...</ul>
+                </div>
+              </div>
             </div>
           </div>
           <div class="gaugeCharts">
             <div class="title">Gauge Charts</div>
             <div class="gauge-list">
-              <br>
+              <br />
               <div class="gauge-box">
                 <h1>Temperature</h1>
                 <div class="gauge" id="temp">
@@ -107,7 +133,7 @@
               </div>
               <br />
               <br />
-              <br>
+              <br />
               <div class="gauge-box">
                 <h1>**Humidity!**</h1>
                 <div class="gauge" id="hum">
@@ -126,6 +152,6 @@
         </div>
       </div>
     </section>
-    <script src="../static/js/dashboard.js"></script>
+    <script src="/static/js/dashboard.js"></script>
   </body>
 </html>
